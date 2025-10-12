@@ -150,3 +150,101 @@ Single-line comprehension
 This combines conditional expression + transformation in one line.
 '''
 print([f"Fever: {round((F - 32) * 5/9, 1)}°C" if F > 100 else "Normal" for F in temps])
+
+'''Drill 14 — Filter + Math + f-String
+You’re analyzing patient temperatures in Fahrenheit:
+temps = [98.6, 102.4, 99.1, 104.3, 97.9]
+Task:
+Write a single-line comprehension that:
+Keeps only temps above 100
+Converts each to Celsius ((F - 32) * 5/9)
+Rounds to 1 decimal place
+Formats them as strings like "Temp: 38.0°C"
+Expected output:
+['Temp: 39.1°C', 'Temp: 40.2°C']'''
+print([f"Temp: {round((F - 32) * 5/9, 1)}°C" for F in temps if F > 100])
+
+'''Drill 15 — Dual Filtering + f-Strings
+You have two parallel patient data lists:
+temps = [98.6, 101.3, 99.5, 103.2, 102.1]
+o2_levels = [97, 95, 89, 92, 90]
+Each temps[i] matches o2_levels[i] for the same patient.
+Task:
+Write a single-line comprehension that:
+Keeps only patients with
+temp > 100, and
+o₂ < 94
+Prints a formatted string:
+"Alert: Temp 38.4°C, O₂ 89%"
+(Convert temp to Celsius, rounded to 1 decimal)
+Expected output:
+['Alert: Temp 39.6°C, O₂ 89%', 'Alert: Temp 38.9°C, O₂ 90%']
+Hint:
+Use zip(temps, o2_levels) to iterate through both lists together.'''
+temps = [98.6, 101.3, 99.5, 103.2, 102.1]
+o2_levels = [97, 95, 89, 92, 90]
+print([f"Alert: Temp {round((F - 32) * 5/9, 1)}°C, O2 {o2}" 
+       for F, o2 in zip(temps, o2_levels) 
+       if F >100 and o2 < 94])
+
+'''Drill 16:
+Zip Drill  — Basic pairing
+names = ["Ana", "Ben", "Cara"]
+temps = [98.6, 101.3, 99.5]
+Task:
+Use zip() in a one-line comprehension to create:
+['Ana: 98.6', 'Ben: 101.3', 'Cara: 99.5']'''
+names = ["Ana", "Ben", "Cara"]
+temps = [98.6, 101.3, 99.5]
+print([f'{name}: {temp}' for name, temp in zip(names, temps)])
+
+'''Drill 17 — Add Conditional Logic
+Same data:
+names = ["Ana", "Ben", "Cara"]
+temps = [98.6, 101.3, 99.5]
+Task:
+Use zip() + conditional comprehension to produce:
+['Ana: Normal', 'Ben: Fever', 'Cara: Normal']
+👉 "Fever" if temp > 100, else "Normal".
+One clean line.'''
+print([f"{name}: Fever" if temp > 100 
+       else f"{name}: Normal" 
+       for name, temp in zip(names, temps)])
+
+
+'''Drill 18:triple zip + math + condition:
+combine temperature, oxygen, and heart rate for 
+each patient and generate a quick health alert summary.
+🧩 Given:
+names = ["Mia", "Sam", "Ana", "Leo"]
+temps = [101.2, 98.6, 100.8, 99.5]
+o2_levels = [93, 97, 89, 96]
+hr = [110, 85, 102, 90]
+🎯 Your task:
+Write a comprehension that produces this kind of list:
+['Mia: Fever, Low O2, High HR', 
+ 'Sam: Normal', 
+ 'Ana: Fever, Low O2, High HR', 
+ 'Leo: Normal']
+Rules:
+“Fever” if temp > 100
+“Low O2” if o2 < 94
+“High HR” if hr > 100
+If none of the above, just show “Normal”.
+Use zip(names, temps, o2_levels, hr) in one line. '''
+
+names = ["Mia", "Sam", "Ana", "Leo"]
+temps = [101.2, 98.6, 100.8, 99.5]
+o2_levels = [93, 97, 89, 96]
+hr = [110, 85, 102, 90]
+
+temp_status = [filter(lambda temp: temp > 100, temps)]
+o2_status = [filter(lambda o2: o2 < 94, o2_levels)]
+hr_status = [filter(lambda h: h > 100, hr)]
+
+print([f"{name}: Fever, Low O2, High HR" 
+       if temp > 100 and o2 < 94 and h > 100 
+       else f"{name}: Normal" 
+       for name, temp, o2, h 
+       in zip(names, temps, o2_levels, hr)])
+
