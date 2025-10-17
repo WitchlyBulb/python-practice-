@@ -109,3 +109,13 @@ print(re.findall(pattern, text))
 '''
 #"\w+\d+\.\d|\w+\s*\d+"
 
+'''Regex Drill 8:
+Regex Refresher (alternation + priority)
+import re
+note = "Patient A: BP120/80 HR72 Temp98.6°F O2 95%"
+pattern = r"\d+/\d+|\d+\.\d+|\d+"
+print(re.findall(pattern, note))
+Predict the output exactly
+'''
+#Output ['120/80', '98.6', '72', '95']
+

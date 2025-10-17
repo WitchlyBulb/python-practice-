@@ -120,3 +120,98 @@ print(text)
 import re
 text = "cat bat rat mat"
 print(re.findall(r"[cb]at", text))
+
+'''Drill 18:
+name = "Sam"
+temp = 98.678
+hr = 72
+Goal output:
+Patient: Sam     | Temp:   98.68°F | HR:   72 bpm
+💡 Using f-strings, reproduce that line with proper:
+left-aligned name in width 8,
+right-aligned temp with 2 decimals, width 8,
+right-aligned hr, width 5.
+👉 Fill in:
+print(f"Patient: {_____} | Temp: {_____}°F | HR: {_____} bpm")'''
+
+name = "Sam"
+temp = 98.678
+hr = 72
+print(f"Patient: {name:<8} | Temp: {temp:8.2f}°F | HR: {hr:5} bpm")
+
+'''Drill 19:
+import re
+note = "Mia BP 118/76 HR 70 Temp 98.9°F; Leo BP 130/88 HR 95 Temp 101.2°F"
+print(re.findall(r"[A-Z][a-z]+", note))
+predict: what list will it print?'''
+# ['Mia', 'Temp', 'Leo', Temp']
+
+'''Drill 20: Predict output:
+import re
+note = "Mia BP 118/76 HR 70 Temp 98.9°F; Leo BP 130/88 HR 95 Temp 101.2°F"
+print(re.findall(r"\d+/\d+", note))'''
+#r"\d+/\d+"
+
+'''Drill 21:
+print(re.findall(r"\d+\.\d+", note))
+'''
+# r"\d+\.\d+"
+
+'''Drill 22:
+print(re.findall(r"[A-Z][a-z]+", note))
+'''
+# r"[A-Z][a-z]+"
+
+'''Drill 23:
+print(re.findall(r"[A-Z][a-z]+(?=\sBP)", note))
+'''
+# r"[A-Z][a-z]+(?=\sBP)"
+'''Drill 24:
+print(re.findall(r"\d+/\d+|\d+\.\d+|\d+", note))
+'''
+# r"\d+/\d+|\d+\.\d+|\d+"
+
+'''Drill 25:
+print(re.findall(r"[A-Z][a-z]+(?=.*101\.2)", note))
+'''
+# r"[A-Z][a-z]+(?=.*101\.2)"
+
+'''Drill 26:
+import re
+text = "BP 118/76, HR 70 bpm, Temp 98.9°F, O2 95%"
+print(re.findall(r"\d+", text))
+Q1: What does this print?
+Q2: Modify it to also catch the fraction 118/76 as one match (not split).
+Q3: Modify it again to catch decimals and integers both (98.9, 70, 95, etc.).
+'''
+#['118', '76', '70', '98', '95']
+# print(re.findall(r"\d+/\d+", text))
+# print(re.findall(r"\d+\.\d+", text))
+
+'''Drill 27:
+import re
+text = "BP 118/76, HR 70, Temp 98.9°F, ID 007, Zip 10016"
+a) Match all 3-digit numbers only (e.g., 100).
+b) Match all 2 to 3 digit numbers.
+c) Match only the 2-number BP pattern (e.g., 118/76).
+d) Match everything numeric, including BP, decimals, and IDs — but not “10016” (zip) because it’s more than 4 digits.
+'''
+# a) print(re.findall(r"\d{3}"))
+# b) print(re.findall(r"\d{2, 3}"))
+# c) print(re.findall(r"\d+/\d+"))
+# d) print(re.findall(r"\d+/\d+|d+\.d+|\d{1, 4}"))
+
+'''Drill 28:
+Include decimals but still avoid long numbers
+text = "BP 118/76 HR 72 Temp 98.9 Zip 10016"
+Task: Match:
+BP numbers (118/76)
+HR (72)
+Temp (98.9)
+Exclude Zip (10016)
+💡 Hint: combine alternation | + \b + decimal pattern.
+print(re.findall(r"_____", text))
+'''
+text = "BP 118/76 HR 72 Temp 98.9 Zip 10016"
+print(re.findall(r"\d+/\d+|\d+\.\d+|\b\d{2,3}\b", text))
+
