@@ -230,3 +230,188 @@ print([f"{pt['name']}: {round(pt['temp'] * 0.6 + pt['hr'] * 0.4, 1)}"
         key=lambda pt: (-(pt['temp'] * 0.6 + pt['hr'] * 0.4), pt['name'])
        )
     ])
+
+# -----------revision oct 17 2025 ---------------
+#Drill 16:
+square = lambda x: x**2
+print(square(4))
+# Output --> 16
+
+'''Drill 17:
+nums = [2, 5, 8, 11]
+👉 Write a lambda + map that doubles each number.'''
+
+nums = [2, 5, 8, 11]
+square_nums = list(map(lambda n: n ** 2, nums))
+print(square_nums)
+
+'''Drill 18:
+temps = [98.6, 101.2, 99.5, 100.4, 102.1]
+👉 Use filter + lambda to return only the fever temps (≥ 100.4)
+'''
+temps = [98.6, 101.2, 99.5, 100.4, 102.1]
+if_fever = list(filter(lambda t: t >= 100.4, temps))
+print(if_fever)
+
+'''Drill 19:
+patients = ["Zara", "Mohammed", "Aisha", "John"]
+👉 Sort this list by the last letter of each name using sorted + lambda.'''
+
+patients = ["Zara", "Mohammed", "Aisha", "John"]
+sorted_patients = sorted(patients, key=lambda p: p[-1])
+print(sorted_patients)
+
+'''Drill 20:
+patients = [("Zara", 25), ("Mohammed", 40), ("Aisha", 30), ("John", 20)]
+👉 Sort this list first by age ascending,
+and if two people have the same age, then by name alphabetically.
+'''
+patients = [("Zara", 25), ("Mohammed", 40), ("Aisha", 30), ("John", 20)]
+sorted_patients = sorted(patients, key=lambda p: (p[1], p[0]))
+print(sorted_patients)
+
+'''Drill 21:
+vitals = {"Alice": 98, "Bob": 102, "Charlie": 99}
+👉 Find the patient with the highest temperature using max() + lambda or .get().'''
+
+vitals = {"Alice": 98, "Bob": 102, "Charlie": 99}
+max_temp = max(vitals, key=lambda p: vitals[p])
+print(max_temp)
+# or
+print(max(vitals, key=lambda p: vitals.get(p)))
+
+'''Drill 22:
+patients = [
+    {"name": "Alice", "temp": 98.6, "hr": 80},
+    {"name": "Bob", "temp": 101.2, "hr": 110},
+    {"name": "Charlie", "temp": 99.5, "hr": 95},
+    {"name": "David", "temp": 102.1, "hr": 120},
+]
+👉 Filter patients with temp ≥ 100
+Extract only their names
+Do it in one clean line using filter + lambda + map and print the list'''
+
+patients = [
+    {"name": "Alice", "temp": 98.6, "hr": 80},
+    {"name": "Bob", "temp": 101.2, "hr": 110},
+    {"name": "Charlie", "temp": 99.5, "hr": 95},
+    {"name": "David", "temp": 102.1, "hr": 120},
+]
+print(list(map(lambda p: p["name"], filter(lambda p: p["temp"] >= 100, patients))))
+
+'''Drill 23:
+Filter patients with temp ≥ 100
+Sort them by heart rate descending
+Extract names only
+Try writing a neat one-liner for this.
+'''
+print(
+    list(
+        map(
+            lambda p: p["name"], 
+            sorted(
+                filter(lambda p: p["temp"] >= 100, patients), 
+                key=lambda p: p["hr"], reverse=True)
+                )
+            )
+        )
+
+'''Drill 24:
+multi-level sorting with lambda:
+Filter patients with temp ≥ 100
+Sort by HR descending, and if HR is equal, sort by name ascending
+Return names only in a single one-liner'''
+
+print(
+    list(
+        map(
+            lambda p: p["name"], 
+            sorted(
+                filter(lambda p: p["temp"] >= 100, patients), 
+                key=lambda p: (-p["hr"], p["name"])
+                )
+            )
+        )
+    )
+
+'''Drill 25:
+# Patients with temp and hr
+patients = [
+    {"name": "Alice", "temp": 98.6, "hr": 80},
+    {"name": "Bob", "temp": 101.2, "hr": 110},
+    {"name": "Charlie", "temp": 99.5, "hr": 95},
+    {"name": "David", "temp": 102.1, "hr": 120},
+]
+# Task:
+# 1. Filter patients with temp >= 100
+# 2. Compute risk = temp*0.6 + hr*0.4 for sorting
+# 3. Sort by risk descending
+# 4. Return a list of "Name: Risk" (rounded to 1 decimal) in a clean one-liner'''
+
+patients = [
+    {"name": "Alice", "temp": 98.6, "hr": 80},
+    {"name": "Bob", "temp": 101.2, "hr": 110},
+    {"name": "Charlie", "temp": 99.5, "hr": 95},
+    {"name": "David", "temp": 102.1, "hr": 120},
+]
+
+print([
+    f'{p["name"]}: {(p["temp"] * 0.6 + p["hr"] * 0.4):.1f}' 
+    for p in sorted(
+        filter(lambda p: p["temp"] >= 100, patients), 
+        key=lambda p: p["temp"] * 0.6 + p["hr"] * 0.4, reverse=True)
+        ])
+
+'''Drill 26:
+Filter patients with temp ≥ 100
+Compute risk = temp*0.6 + hr*0.4
+Sort by risk descending, then name ascending if tie
+Return "Name: Risk" in a clean one-liner'''
+patients = [
+    {"name": "Alice", "temp": 98.6, "hr": 80},
+    {"name": "Bob", "temp": 101.2, "hr": 110},
+    {"name": "Charlie", "temp": 99.5, "hr": 95},
+    {"name": "David", "temp": 102.1, "hr": 120},
+]
+print([
+    f'{p["name"]}: {(p["temp"] * 0.6 + p["hr"] * 0.4):.1f}' 
+    for p in sorted(
+        filter(lambda p: p["temp"] >= 100, patients), 
+        key=lambda p: (-(p["temp"] * 0.6 + p["hr"] * 0.4), p["name"])
+                       )
+                    ])
+
+'''Drill 27:
+patients = [
+    {"name": "Alice", "temp": 98.6, "hr": 80},
+    {"name": "Bob", "temp": 101.2, "hr": 110},
+    {"name": "Charlie", "temp": 99.5, "hr": 95},
+    {"name": "David", "temp": 102.1, "hr": 120},
+]
+
+# Task:
+# 1. Filter patients with temp >= 100 OR hr >= 100
+# 2. Assign status:
+#       - "Critical" if temp >= 102 OR hr >= 120
+#       - "Warning" if temp >= 100 OR hr >= 100
+# 3. Sort by status descending ("Critical" first), then by name ascending
+# 4. Return a **list of "Name: Status"** in a **single clean one-liner**
+'''
+patients = [
+    {"name": "Alice", "temp": 98.6, "hr": 80},
+    {"name": "Bob", "temp": 101.2, "hr": 110},
+    {"name": "Charlie", "temp": 99.5, "hr": 95},
+    {"name": "David", "temp": 102.1, "hr": 120},
+]
+print([
+    f'{p["name"]}: {"Critical" if p["temp"] >= 102 or p["hr"] >= 120 else "Warning"}'
+      for p in sorted(
+          filter(
+              lambda p: p["temp"] >= 100 or p["hr"] >= 100, patients), 
+              key=lambda p: (-1 if p["temp"] >= 102 or p["hr"] >= 120 else 0, p["name"])
+                        )
+                    ])
+
+
+
+
